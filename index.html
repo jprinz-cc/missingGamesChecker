@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>XML File Comparison</title>
+    <link href="css/index.css">
+</head>
+<body>
+    <h1>XML File Comparison</h1>
+    <form id="platformFileForm">
+        <label for="platformFile">Launchbox Platforms XML File: </label>
+        <input type="file" id="platformFile" required><br><br>
+        <button type="submit" id="platformFileSubmit">Submit</button><br><br>
+    </form>
+
+    <form id="platformForm" style="display: none;">
+        <label for="platformSelect">Platform To Check</label>
+        <select name="platformSelect" id="platformSelect"></select><br><br>
+        <button type="submit" id="platformSubmit">Submit</button><br><br>
+    </form>
+    
+    <form id="comparisonForm" style="display: none;">
+        <label for="file1">XML File 1:</label>
+        <input type="file" id="file1" required><br><br>
+        
+        <label for="file2">XML File 2:</label>
+        <input type="file" id="file2" required><br><br>
+
+        <label for="property">Property Name:</label>
+        <input type="text" id="property" required><br><br>
+
+        <button type="submit">Compare</button>
+    </form>
+
+    <div id="resultContainer" style="display: none;">
+        <h2>Comparison Result</h2>
+        <table id="missingItemsList"></table>
+    </div>
+
+    <script src="js/missingGamesChecker.js"></script>
+</body>
+</html>
