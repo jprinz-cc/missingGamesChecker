@@ -35,12 +35,19 @@
     color: #009879;
 }
 
+#totalLBGames, #totalUserGames {
+    color: crimson;
+    font-weight: bolder;
+}
+
 .error {
     color: red;
+    font-weight: bolder;
     margin-left: 15px;   
 }
 
 .ok {
     color: rgb(9, 107, 9);
+    font-weight: bolder;
     margin-left: 15px;
 }

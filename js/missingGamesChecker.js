@@ -17,6 +17,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // Message fields
     const msglbPlatformFile = document.querySelector("#msglbPlatformFile");
     const msgPlatformSelect = document.querySelector("#msgPlatformSelect");
+    const msgTotalLBGames = document.querySelector("#totalLBGames");
+    const msgTotalUserGames = document.querySelector("#totalUserGames");
 
     // Startup defaults
     lbPlatformInput.focus();
@@ -138,6 +140,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     let xml2 = e.target.result;
                     let xmlDoc2 = parser.parseFromString(xml2, 'text/xml');
                     let items2 = xmlDoc2.getElementsByTagName('Game');
+
+                    let totalLBGames = valuesArray.length;
+                    let totalUserGames = items2.length;
         
                     // Array to hold missing games
                     let missingItems = [];
@@ -171,7 +176,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
 
                     // Promise return of the missing games
-                    resolve(missingItems);
+                    let result = [missingItems, totalLBGames, totalUserGames];
+                    resolve(result);
                 };
 
                 // Reader2 Error and Init
@@ -216,7 +222,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Function to display results from comparing user platform file and metadata
-    function displayResult(missingItems) {
+    function displayResult(result) {
+        const missingItems = result[0];
+        const totalLBGames = result[1];
+        const totalUserGames = result[2];
+        console.log(totalLBGames, totalUserGames);
+        msgTotalLBGames.innerHTML = totalLBGames;
+        msgTotalUserGames.innerHTML = totalUserGames;
 
         if(elResultTable.innerHTML != ''){
             // Remove eventlisteners for 
