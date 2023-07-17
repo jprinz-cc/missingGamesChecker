@@ -218,6 +218,21 @@ document.addEventListener("DOMContentLoaded", () => {
     // Function to display results from comparing user platform file and metadata
     function displayResult(missingItems) {
 
+        if(elResultTable.innerHTML != ''){
+            // Remove eventlisteners for 
+            let tableTRs = document.querySelectorAll('#missingItemsList tr')
+            tableTRs.forEach((tr) =>{
+                tr.removeEventListener("mouseover", (e) =>{
+                    let tableTR = e.target.parentElement;
+                    tableTR.classList.add('active-row');
+                });
+                tr.removeEventListener("mouseout", (e) =>{
+                    let tableTR = e.target.parentElement;
+                    tableTR.classList.remove('active-row');
+                });
+            });   
+        }
+
         // Reset table
         elResultTable.innerHTML = '';
     
@@ -232,16 +247,30 @@ document.addEventListener("DOMContentLoaded", () => {
             let cell2 = hRow.insertCell(1);
             cell1.innerHTML = "Title";
             cell2.innerHTML = "DatabaseID";
+            let tBody = elResultTable.createTBody();
     
             // Loop over missing games to display in table
             for (let i = 0; i < missingItems.length; i++) {
-                let row = elResultTable.insertRow(i+1);
+                let row = tBody.insertRow(i);
                 let cellTitle = row.insertCell(0);
                 let cellId = row.insertCell(1);
                 cellTitle.innerHTML = missingItems[i].title;
                 cellId.innerHTML = missingItems[i].databaseID;
     
             }
+
+            // Add eventlisteners for 
+            let tableTRs = document.querySelectorAll('#missingItemsList tr')
+            tableTRs.forEach((tr) =>{
+                tr.addEventListener("mouseover", (e) =>{
+                    let tableTR = e.target.parentElement;
+                    tableTR.classList.add('active-row');
+                });
+                tr.addEventListener("mouseout", (e) =>{
+                    let tableTR = e.target.parentElement;
+                    tableTR.classList.remove('active-row');
+                });
+            });            
         }
 
         // Reveal table when Compare is clicked

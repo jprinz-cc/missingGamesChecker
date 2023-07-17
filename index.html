@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>XML File Comparison</title>
+    <title>Launchbox Missing Games Checker</title>
     <link href="css/index.css" rel="stylesheet">
 </head>
 <body>
-    <h1>XML File Comparison</h1>
+    <h1>Launchbox Missing Games Checker</h1>
     <form id="lbPlatformFileForm">
         <label for="lbPlatformFile">1. Launchbox Platforms.xml: </label>
         <input type="file" id="lbPlatformFile" required><br><br>
@@ -37,6 +37,18 @@
         <h2>Comparison Result</h2>
         <table id="missingItemsList"></table>
     </div>
+
+    <br>
+    <br>
+    <aside>
+        <p>Simple tool that will compare your Launchbox platform XML files (your loaded Launchbox games) to the LaunchboxDB local XML file. The output shows game Title and DatabaseID based on LaunchboxDB.</p>
+        <span><b>Please note:</b></span>
+        <ul>
+            <li>This only checks against the local copies of the files.</li>
+            <li>Designed against Launchbox 13.5 file formatting and XML naming conventions.</li>
+            <li>This is not a complete platform library check as Launchbox states their DB may not be complete and could be missing games.</li>
+        </ul>
+    </aside>
 
     <script src="js/missingGamesChecker.js"></script>
 </body>
