@@ -2,55 +2,73 @@
 
 document.addEventListener("DOMContentLoaded", () => {
     const elProperty = document.querySelector('#property');
-    const elPlatformForm = document.querySelector("#platformForm");
-    const platformSelect = document.querySelector("#platformSelect");
+    const elCompareForm = document.querySelector("#comparisonForm");
+    const lbPlatformFile = document.querySelector('#lbPlatformFile')
+    const elPlatformSelect = document.querySelector("#platformSelect");
+    const msglbPlatformFile = document.querySelector("#msglbPlatformFile");
+    const msgPlatformSelect = document.querySelector("#msgPlatformSelect");
 
-    document.getElementById('file1').focus();
+    lbPlatformFile.focus();
     elProperty.defaultValue = "DatabaseID";
 
-    document.querySelector("#platformFileForm").addEventListener('submit', function(e) {
+    // Verify platform selection was changed from default
+    elPlatformSelect.addEventListener("change", checkSelect);
+
+
+
+    document.querySelector("#lbPlatformFileForm").addEventListener('submit', function(e) {
         e.preventDefault();
-        elPlatformForm.style.display = 'block';
-        let platformFile = document.querySelector("#platformFile").files[0];
+        resetForms();
+        let lbPlatformFile = document.querySelector("#lbPlatformFile").files[0];
         
-        let reader1 = new FileReader();
-        reader1.onload = function(e) { 
-            let xml1 = e.target.result;            
+        let reader = new FileReader();
+        reader.onload = function(e) { 
+            let xml = e.target.result;            
 
             let parser = new DOMParser();
-            let xmlDoc1 = parser.parseFromString(xml1, 'text/xml');
-            let platformsXml = xmlDoc1.getElementsByTagName('Platform');
-            let arrPlatform = [];
-            for(let i = 0; i < platformsXml.length; i++){
+            let xmlDoc = parser.parseFromString(xml, 'text/xml');
 
-                arrPlatform[i] = platformsXml[i].firstElementChild.textContent;
+            if(xmlDoc.firstChild.tagName == "LaunchBox" && xmlDoc.firstChild.firstElementChild.tagName == "Platform"){
 
-            }
-            
-            arrPlatform.sort();
-            arrPlatform = [...new Set(arrPlatform)];
-            arrPlatform.forEach(platformOptions);
+                let platformsXml = xmlDoc.getElementsByTagName('Platform');
+                let arrPlatform = [];
+                for(let i = 0; i < platformsXml.length; i++){
+    
+                    arrPlatform[i] = platformsXml[i].firstElementChild.textContent;
+    
+                }
+                
+                arrPlatform.sort();
+                arrPlatform = [...new Set(arrPlatform)];
+                arrPlatform.forEach(platformOptions);
+    
+                
+                //platformSelect.options.length = arrPlatform.length;
+                function platformOptions(item){
+                    //console.log(item);
+                    elPlatformSelect.options.add( new Option(item,item));
+                }
+                elCompareForm.style.display = 'block';
+                msglbPlatformFile.innerHTML = "OK";
+                msglbPlatformFile.classList.add("ok");
+                msglbPlatformFile.classList.remove("error");
 
-            
-            //platformSelect.options.length = arrPlatform.length;
-            function platformOptions(item){
-                console.log(item);
-                platformSelect.options.add( new Option(item,item));
-            }
+            } else {
+                msglbPlatformFile.innerHTML = "Please select a Launchbox Platforms.xml file.";
+                msglbPlatformFile.classList.add("error");
+                msglbPlatformFile.classList.remove("ok");
+            }            
         };
-        reader1.readAsText(platformFile);      
+        reader.readAsText(lbPlatformFile);      
 
     });
 
-    document.querySelector("#platformForm").addEventListener('submit', function(e) {
-        e.preventDefault();
-    });
 
-    document.getElementById('comparisonForm').addEventListener('submit', function(e) {
+    document.querySelector('#comparisonForm').addEventListener('submit', function(e) {
         e.preventDefault();
     
-        let file1 = document.getElementById('file1').files[0];
-        let file2 = document.getElementById('file2').files[0];
+        let metadataFile = document.getElementById('metadataFile').files[0];
+        let platformFile = document.getElementById('platformFile').files[0];
         let property = elProperty.value;
     
         let reader1 = new FileReader();
@@ -98,13 +116,28 @@ document.addEventListener("DOMContentLoaded", () => {
                 displayResult(missingItems);
             };
     
-            reader2.readAsText(file2);
+            reader2.readAsText(platformFile);
         };
     
-        reader1.readAsText(file1);
+        reader1.readAsText(metadataFile);
     });
 
+    // Reset form function
+    function resetForms(){
+        elCompareForm.style.display = 'none';
+        resultContainer.style.display = 'none';
+        msgPlatformSelect.innerHTML = "";
+        elPlatformSelect.selectedIndex = 0;
+    }
 
+    // Function to verify platform selection was changed from default
+    function checkSelect(){
+        if(elPlatformSelect.value != ""){
+            msgPlatformSelect.innerHTML = "OK";
+        } else {
+            msgPlatformSelect.innerHTML = "";
+        }
+    }
 });
 
 
@@ -137,3 +170,5 @@ function displayResult(missingItems) {
 
     resultContainer.style.display = 'block';
 }
+
+

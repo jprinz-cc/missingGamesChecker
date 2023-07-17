@@ -1,0 +1,9 @@
+.error {
+    color: red;
+    margin-left: 15px;   
+}
+
+.ok {
+    color: rgb(9, 107, 9);
+    margin-left: 15px;
+}
