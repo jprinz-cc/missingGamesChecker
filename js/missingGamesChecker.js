@@ -1,30 +1,37 @@
 
 
 document.addEventListener("DOMContentLoaded", () => {
-    const elProperty = document.querySelector('#property');
+    // Container elements
     const elPlatformSelect = document.querySelector('#platformForm');
     const elCompareForm = document.querySelector("#comparisonForm");
     
-    const lbPlatformFile = document.querySelector('#lbPlatformFile')
-    const platformSelect = document.querySelector("#platformSelect");    
+    // Controls
+    const propertyInput = document.querySelector('#property');
+    const lbPlatformInput = document.querySelector('#lbPlatformFile')
+    const platformSelect = document.querySelector("#platformSelect");
+    const platformInput = document.getElementById('platformFile');
+    const metadataInput = document.getElementById('metadataFile');
     
+    // Message fields
     const msglbPlatformFile = document.querySelector("#msglbPlatformFile");
     const msgPlatformSelect = document.querySelector("#msgPlatformSelect");
 
-    lbPlatformFile.focus();
-    elProperty.defaultValue = "DatabaseID";
+    // Startup defaults
+    lbPlatformInput.focus();
+    propertyInput.defaultValue = "DatabaseID";
 
-    lbPlatformFile.addEventListener("change", resetForms);
+    // Reset form when new Launchbox Platform.xml file is selected
+    lbPlatformInput.addEventListener("change", resetForms);
 
     // Verify platform selection was changed from default
     platformSelect.addEventListener("change", checkSelect);
 
 
-
+    // Eventlistener for Launchbox Platform.xml file submission
     document.querySelector("#lbPlatformFileForm").addEventListener('submit', function(e) {
         e.preventDefault();
         resetForms();
-        let lbPlatformFile = document.querySelector("#lbPlatformFile").files[0];
+        let lbPlatformFile = lbPlatformInput.files[0];
         
         let reader = new FileReader();
         reader.onload = function(e) { 
@@ -72,9 +79,9 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector('#comparisonForm').addEventListener('submit', function(e) {
         e.preventDefault();
     
-        let metadataFile = document.getElementById('metadataFile').files[0];
-        let platformFile = document.getElementById('platformFile').files[0];
-        let property = elProperty.value;
+        let metadataFile = metadataInput.files[0];
+        let platformFile = platformInput.files[0];
+        let property = propertyInput.value;
     
         let reader1 = new FileReader();
         reader1.onload = function(e) {
