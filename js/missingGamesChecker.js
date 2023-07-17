@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         if (!found) {
                             let missingItem = {};
                             missingItem.databaseID = propertyValue;
-                            missingItem.title = items1[i].getElementsByTagName("Title")[0].textContent;
+                            missingItem.title = items1[i].getElementsByTagName("Name")[0].textContent;
                             missingItems.push(missingItem);
                         }
                     }
