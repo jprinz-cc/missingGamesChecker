@@ -2,6 +2,7 @@
 
 document.addEventListener("DOMContentLoaded", () => {
     // Container elements
+    const elLoader = document.querySelector("#loader");
     const elPlatformSelect = document.querySelector('#platformForm');
     const elCompareForm = document.querySelector("#comparisonForm");
     const elResultContainer = document.querySelector('#resultContainer');
@@ -45,6 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Read in Platform.xml file
         let reader = new FileReader();
         reader.onload = function(e) { 
+            elLoader.style.display = 'block';
             let xml = e.target.result;            
 
             let parser = new DOMParser();
@@ -73,6 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
                 // Setup next section
+                elLoader.style.display = 'none';
                 elPlatformSelect.style.display = 'block';
                 msglbPlatformFile.innerHTML = "OK";
                 msglbPlatformFile.classList.add("ok");
@@ -104,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Promise to query metadata and platform files; Returns missing games to display
         const getPlatformMetadata = (metadataFile, platformFile) => new Promise((resolve, reject) => {
-            
+            elLoader.style.display = 'block';
             // Reader for metadataFile
             let reader1 = new FileReader();
             reader1.onload = (e) => {
@@ -223,6 +226,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Function to display results from comparing user platform file and metadata
     function displayResult(result) {
+        elLoader.style.display = 'none';
         const missingItems = result[0];
         const totalLBGames = result[1];
         const totalUserGames = result[2];
@@ -231,7 +235,7 @@ document.addEventListener("DOMContentLoaded", () => {
         msgTotalUserGames.innerHTML = totalUserGames;
 
         if(elResultTable.innerHTML != ''){
-            // Remove eventlisteners for 
+            // Remove eventlisteners for table rows
             let tableTRs = document.querySelectorAll('#missingItemsList tr')
             tableTRs.forEach((tr) =>{
                 tr.removeEventListener("mouseover", (e) =>{
@@ -271,7 +275,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
             }
 
-            // Add eventlisteners for 
+            // Add eventlisteners for table rows
             let tableTRs = document.querySelectorAll('#missingItemsList tr')
             tableTRs.forEach((tr) =>{
                 tr.addEventListener("mouseover", (e) =>{
