@@ -83,6 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             } else {
                 // Error on Platforms.xml file selection
+                elLoader.style.display = 'none';
                 msglbPlatformFile.innerHTML = "Please select a Launchbox Platforms.xml file.";
                 msglbPlatformFile.classList.add("error");
                 msglbPlatformFile.classList.remove("ok");
