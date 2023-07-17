@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const msgPlatformSelect = document.querySelector("#msgPlatformSelect");
     const msgTotalLBGames = document.querySelector("#totalLBGames");
     const msgTotalUserGames = document.querySelector("#totalUserGames");
+    const msgTotalMissing = document.querySelector("#totalMissing");
 
     // Startup defaults
     lbPlatformInput.focus();
@@ -231,12 +232,15 @@ document.addEventListener("DOMContentLoaded", () => {
         const missingItems = result[0];
         const totalLBGames = result[1];
         const totalUserGames = result[2];
-        console.log(totalLBGames, totalUserGames);
+
+        // Display game totals and total missing
         msgTotalLBGames.innerHTML = totalLBGames;
         msgTotalUserGames.innerHTML = totalUserGames;
+        const totalMissing = totalLBGames - totalUserGames;
+        msgTotalMissing.innerHTML = totalMissing;
 
+        // Remove eventlisteners for table rows if table is not empty
         if(elResultTable.innerHTML != ''){
-            // Remove eventlisteners for table rows
             let tableTRs = document.querySelectorAll('#missingItemsList tr')
             tableTRs.forEach((tr) =>{
                 tr.removeEventListener("mouseover", (e) =>{

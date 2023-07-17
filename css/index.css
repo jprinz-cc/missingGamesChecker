@@ -35,7 +35,7 @@
     color: #009879;
 }
 
-#totalLBGames, #totalUserGames {
+#totalLBGames, #totalUserGames, #totalMissing {
     color: crimson;
     font-weight: bolder;
 }
