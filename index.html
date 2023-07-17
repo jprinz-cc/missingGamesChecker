@@ -12,19 +12,15 @@
         <button type="submit" id="lbPlatformFileSubmit">Submit</button><span id="msglbPlatformFile"></span><br><br>
     </form>
 
-    <!-- <form id="platformForm" style="display: none;">
-        <label for="platformSelect">2. Platform To Check</label>
-        <select name="platformSelect" id="platformSelect"></select><br><br>
-        <button type="submit" id="platformSubmit">Submit</button><br><br>
-    </form> -->
-    
-    <form id="comparisonForm" style="display: none;">
+    <div id="platformForm" style="display: none;">
         <label for="platformSelect">2. Platform To Check</label>
         <select name="platformSelect" id="platformSelect">
             <option value="">Select a platform</option>
         </select>
         <span class="ok" id="msgPlatformSelect"></span><br><br>
-
+    </div>
+    
+    <form id="comparisonForm" style="display: none;">
         <label for="platformFile">3. The platform XML file:</label>
         <input type="file" id="platformFile" required><br><br>
         
@@ -32,7 +28,7 @@
         <input type="file" id="metadataFile" required><br><br>
 
         <label for="property">Property Name:</label>
-        <input type="text" id="property" required><br><br>
+        <input type="text" id="property" required disabled><br><br>
 
         <button type="submit">Compare</button>
     </form>

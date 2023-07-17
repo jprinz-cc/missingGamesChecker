@@ -2,17 +2,22 @@
 
 document.addEventListener("DOMContentLoaded", () => {
     const elProperty = document.querySelector('#property');
+    const elPlatformSelect = document.querySelector('#platformForm');
     const elCompareForm = document.querySelector("#comparisonForm");
+    
     const lbPlatformFile = document.querySelector('#lbPlatformFile')
-    const elPlatformSelect = document.querySelector("#platformSelect");
+    const platformSelect = document.querySelector("#platformSelect");    
+    
     const msglbPlatformFile = document.querySelector("#msglbPlatformFile");
     const msgPlatformSelect = document.querySelector("#msgPlatformSelect");
 
     lbPlatformFile.focus();
     elProperty.defaultValue = "DatabaseID";
 
+    lbPlatformFile.addEventListener("change", resetForms);
+
     // Verify platform selection was changed from default
-    elPlatformSelect.addEventListener("change", checkSelect);
+    platformSelect.addEventListener("change", checkSelect);
 
 
 
@@ -46,9 +51,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 //platformSelect.options.length = arrPlatform.length;
                 function platformOptions(item){
                     //console.log(item);
-                    elPlatformSelect.options.add( new Option(item,item));
+                    platformSelect.options.add( new Option(item,item));
                 }
-                elCompareForm.style.display = 'block';
+                elPlatformSelect.style.display = 'block';
                 msglbPlatformFile.innerHTML = "OK";
                 msglbPlatformFile.classList.add("ok");
                 msglbPlatformFile.classList.remove("error");
@@ -124,18 +129,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Reset form function
     function resetForms(){
+        elPlatformSelect.style.display = 'none';
         elCompareForm.style.display = 'none';
         resultContainer.style.display = 'none';
+        msglbPlatformFile.innerHTML = "";
         msgPlatformSelect.innerHTML = "";
-        elPlatformSelect.selectedIndex = 0;
+        platformSelect.selectedIndex = 0;
     }
 
     // Function to verify platform selection was changed from default
     function checkSelect(){
-        if(elPlatformSelect.value != ""){
+        if(platformSelect.value != ""){
             msgPlatformSelect.innerHTML = "OK";
+            elCompareForm.style.display = 'block';
         } else {
             msgPlatformSelect.innerHTML = "";
+            elCompareForm.style.display = 'none';
         }
     }
 });
