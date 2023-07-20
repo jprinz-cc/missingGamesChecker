@@ -37,7 +37,7 @@
 
 #totalLBGames, #totalUserGames, #totalMissing {
     color: crimson;
-    font-weight: bolder;
+    font-weight: bold;
 }
 
 .error {
